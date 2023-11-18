@@ -1,8 +1,7 @@
-from django.shortcuts import render
-
 from django.views import generic
-from competitions.models import Competition, SportType, GenderType, Match, Team
 from rest_framework import generics
+
+from competitions.models import Competition, SportType, GenderType, Match, Team
 from .serializers import CompetitionSerializer, SportTypeSerializer, TeamSerializer, GenderTypeSerializer, \
     MatchSerializer
 

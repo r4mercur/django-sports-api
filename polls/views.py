@@ -2,16 +2,22 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-from rest_framework import generics
 
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 
 from polls.models import Question, Choice
 from .serializers import QuestionSerializer, ChoiceSerializer
 
 
 class APIQuestionView(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
+
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
 
 
 class APIChoiceView(generics.ListCreateAPIView):
