@@ -2,8 +2,21 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
+from rest_framework import generics
+
 
 from polls.models import Question, Choice
+from .serializers import QuestionSerializer, ChoiceSerializer
+
+
+class APIQuestionView(generics.ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class APIChoiceView(generics.ListCreateAPIView):
+    queryset = Choice.objects.all()
+    serializer_class = ChoiceSerializer
 
 
 class IndexView(generic.ListView):
