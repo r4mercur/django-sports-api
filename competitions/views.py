@@ -41,4 +41,4 @@ class IndexView(generic.ListView):
     context_object_name = "latest_competitions_list"
 
     def get_queryset(self):
-        return Competition.objects.order_by("-pub_date")[:5]
+        return Competition.objects.order_by("-id")[:5]
