@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "polls.apps.PollsConfig",
     "competitions.apps.CompetitionsConfig",
     'django.contrib.admin',
     'django.contrib.auth',
@@ -81,15 +80,19 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'django',
+#        'USER': 'django',
+#        'PASSWORD': 'nqCWz8hm6RpDtPv2',
+#        'HOST': 'localhost',
+#        'PORT': '3306',
+#    }
 
-DATABASES = {
+DATABASES = {    
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
-        'USER': 'django',
-        'PASSWORD': 'nqCWz8hm6RpDtPv2',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 

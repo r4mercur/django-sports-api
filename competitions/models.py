@@ -58,6 +58,24 @@ class Match(models.Model):
         related_name='away_matches',
         default=None
     )
+    competition = models.ForeignKey(Competition, on_delete=models.CASCADE, null=True, blank=True)
     sport_type = models.ForeignKey(SportType, on_delete=models.CASCADE, null=True, blank=True)
+    match_date = models.DateTimeField("match date")
     goals_home = models.IntegerField(null=True, blank=True)
     goals_away = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.team_home} vs {self.team_away}'
+
+
+class Player(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    position = models.CharField(max_length=100, default=None)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, default=None)
+
+    def __str__(self):
+        if self.team is None:
+            return self.name
+        else:
+            return f'{self.name} ({self.team.name})'
