@@ -20,12 +20,20 @@ class SportType(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Sportart"
+        verbose_name_plural = "Sportarten"
+
 
 class GenderType(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Geschlecht"
+        verbose_name_plural = "Geschlechter"
 
 
 class Competition(models.Model):
@@ -36,6 +44,10 @@ class Competition(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Wettbewerb"
+        verbose_name_plural = "Wettbewerbe"
+
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
@@ -43,6 +55,10 @@ class Team(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Team"
+        verbose_name_plural = "Teams"
 
 
 class Match(models.Model):
@@ -67,6 +83,10 @@ class Match(models.Model):
     def __str__(self):
         return f'{self.team_home} vs {self.team_away}'
 
+    class Meta:
+        verbose_name = "Spiel"
+        verbose_name_plural = "Spiele"
+
 
 class Player(models.Model):
     name = models.CharField(max_length=100)
@@ -79,3 +99,7 @@ class Player(models.Model):
             return self.name
         else:
             return f'{self.name} ({self.team.name})'
+
+    class Meta:
+        verbose_name = "Spieler"
+        verbose_name_plural = "Spieler"

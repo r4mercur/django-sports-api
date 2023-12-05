@@ -1,6 +1,7 @@
 from django.test import TestCase
 from .models import SportType, GenderType, Competition, Team, Match, Player
 
+
 # Create your tests here.
 class SportTypeTestCase(TestCase):
     def setUp(self):
@@ -12,6 +13,7 @@ class SportTypeTestCase(TestCase):
         basketball = SportType.objects.get(name="Basketball")
         self.assertEqual(football.name, "Football")
         self.assertEqual(basketball.name, "Basketball")
+
 
 class GenderTypeTestCase(TestCase):
     def setUp(self):
@@ -79,11 +81,12 @@ class MatchTestCase(TestCase):
         match = Match.objects.get(team_home=bayern)
         self.assertEqual(match.team_home.name, "FC Bayern München")
 
+
 class PlayerTestCase(TestCase):
     def setUp(self):
         Player.objects.create(name="Lionel Messi", age=34, position="Stürmer")
         Player.objects.create(name="Robert Lewandowski", age=33, position="Stürmer")
-    
+
     def test_player_name(self):
         messi = Player.objects.get(name="Lionel Messi")
         lewa = Player.objects.get(name="Robert Lewandowski")

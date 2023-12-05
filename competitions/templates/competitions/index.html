@@ -1,0 +1,12 @@
+<html lang="de">
+    <head>
+        <title>Wettbewerbe</title>
+    </head>
+
+    <body>
+        <h1>Wettberwebe</h1>
+        {% for comp in latest_competitions_list %}
+            <p><a href="/competitions/{{ comp.id }}/">{{ comp.name }}</a></p>
+        {% endfor %}
+    </body>
+</html>

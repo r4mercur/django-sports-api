@@ -11,4 +11,5 @@ urlpatterns = [
     path("api/gender_types/", APIGenderTypeView.as_view(), name="api_gender_types"),
     path("api/matches/", APIMatchView.as_view(), name="api_matches"),
     path("api/teams/", APITeamView.as_view(), name="api_teams"),
+    path("api/competitions/table/<int:pk>/", views.calculate_table, name="calctable_competition"),
 ]
