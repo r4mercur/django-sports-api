@@ -53,7 +53,6 @@ class CompetitionTestCase(TestCase):
         Competition.objects.create(name="1. Bundesliga", sport_type=st, gender_type=gt)
 
     def test_competition_name(self):
-        """Competition name is correctly identified"""
         bundesliga = Competition.objects.get(name="1. Bundesliga")
         self.assertEqual(bundesliga.name, "1. Bundesliga")
 
@@ -76,7 +75,17 @@ class MatchTestCase(TestCase):
         )
 
     def test_match_team_home(self):
-        """Match team home is correctly identified"""
         bayern = Team.objects.get(name="FC Bayern München")
         match = Match.objects.get(team_home=bayern)
         self.assertEqual(match.team_home.name, "FC Bayern München")
+
+class PlayerTestCase(TestCase):
+    def setUp(self):
+        Player.objects.create(name="Lionel Messi", age=34, position="Stürmer")
+        Player.objects.create(name="Robert Lewandowski", age=33, position="Stürmer")
+    
+    def test_player_name(self):
+        messi = Player.objects.get(name="Lionel Messi")
+        lewa = Player.objects.get(name="Robert Lewandowski")
+        self.assertEqual(messi.name, "Lionel Messi")
+        self.assertEqual(lewa.name, "Robert Lewandowski")

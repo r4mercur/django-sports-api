@@ -72,7 +72,7 @@ class Player(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     position = models.CharField(max_length=100, default=None)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, default=None)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         if self.team is None:
