@@ -2,11 +2,11 @@ import json
 
 from django.http import HttpResponse
 from django.views import generic
-from rest_framework import generics
+from rest_framework import generics, filters
 
-from competitions.models import Competition, SportType, GenderType, Match, Team
+from competitions.models import Competition, SportType, GenderType, Match, Team, Player, Season
 from .serializers import CompetitionSerializer, SportTypeSerializer, TeamSerializer, GenderTypeSerializer, \
-    MatchSerializer
+    MatchSerializer, PlayerSerializer, SeasonSerializer
 
 
 # Create your views here.
@@ -62,6 +62,9 @@ def calculate_table(request, pk):
 class APICompetitionView(generics.ListCreateAPIView):
     queryset = Competition.objects.all()
     serializer_class = CompetitionSerializer
+    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
+    ordering_filters = ['name', 'seasons']
+    search_fields = ['name', 'seasons__name']
 
 
 class APISportTypeView(generics.ListCreateAPIView):
@@ -77,11 +80,40 @@ class APIGenderTypeView(generics.ListCreateAPIView):
 class APIMatchView(generics.ListCreateAPIView):
     queryset = Match.objects.all()
     serializer_class = MatchSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['match_date', 'match_day']
+
+
+class APICompetitionMatches(generics.ListCreateAPIView):
+    queryset = Match.objects.all()
+    serializer_class = MatchSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['match_date', 'match_day']
+
+    def get_queryset(self):
+        competition_id = self.kwargs['competition_id']
+        return Match.objects.filter(competition=competition_id)
 
 
 class APITeamView(generics.ListCreateAPIView):
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['name', 'location']
+
+
+class APISeasonView(generics.ListCreateAPIView):
+    queryset = Season.objects.all()
+    serializer_class = SeasonSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['name']
+
+
+class APIPlayerView(generics.ListCreateAPIView):
+    queryset = Player.objects.all()
+    serializer_class = PlayerSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['name', 'team', 'position', 'age']
 
 
 # Other views

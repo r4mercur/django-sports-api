@@ -1,5 +1,11 @@
 from rest_framework import serializers
-from .models import Competition, SportType, GenderType, Match, Team
+from .models import Competition, SportType, GenderType, Match, Team, Player, Season
+
+
+class SeasonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Season
+        fields = '__all__'
 
 
 class CompetitionSerializer(serializers.ModelSerializer):
@@ -29,4 +35,10 @@ class MatchSerializer(serializers.ModelSerializer):
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
+        fields = '__all__'
+
+
+class PlayerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Player
         fields = '__all__'
