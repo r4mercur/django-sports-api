@@ -25,45 +25,46 @@ def create_example_data():
         print("Example data already exists \n")
         return
 
-    gt = GenderType(name="Weiblich")
-    GenderType(name="Männlich").save()
+    gt = GenderType(name="Männlich")
+    GenderType(name="Weiblich").save()
     gt.save()
 
     st = SportType(name="Fussball")
     st.save()
 
-    c = Competition(name="Example Competition", gender_type=gt, sport_type=st)
+    c = Competition(name="1. Bundesliga", gender_type=gt, sport_type=st)
     c.save()
 
-    t1 = Team(name="Team 1", location="München")
-    t1.save()
-    t2 = Team(name="Team 2", location="Berlin")
-    t2.save()
+    i = 1
+    while i < 19:
+        t = Team(name="Team " + str(i), location="Location " + str(i))
+        t.save()
 
-    p1 = Player(name="Player 1", team=t1, position="Torwart", age=randrange(18, 40))
-    p1.save()
-    p2 = Player(name="Player 2", team=t1, position="Stürmer", age=randrange(18, 40))
-    p2.save()
-    p3 = Player(name="Player 3", team=t2, position="Verteidiger", age=randrange(18, 40))
-    p3.save()
-    p4 = Player(name="Player 4", team=t2, position="Mittelfeld", age=randrange(18, 40))
-    p4.save()
+        # create players
+        for x in range(0, 18):
+            position = ""
+            if x < 9 and x % 2 == 0:
+                position = "Verteidiger"
+            elif x < 9 and x % 2 != 0:
+                position = "Stürmer"
+            elif x >= 9 and x % 2 == 0:
+                position = "Torwart"
+            p = Player(name="Player " + str(x), team=Team.objects.get(pk=i), position=position, age=randrange(18, 35))
+            p.save()
+        i += 1
 
-    # create a match between the two teams
-    m = Match(competition=c, team_home=t1, team_away=t2, goals_home=5, goals_away=3, match_date=timezone.now())
-    m.save()
-
-    # create a match between the two teams
-    m = Match(competition=c, team_home=t2, team_away=t1, goals_home=2, goals_away=3, match_date=timezone.now())
-    m.save()
-
-    # create a match between the two teams
-    m = Match(competition=c, team_home=t1, team_away=t2, goals_home=3, goals_away=3, match_date=timezone.now())
-    m.save()
-
-    # create a match between the two teams
-    m = Match(competition=c, team_home=t2, team_away=t1, goals_home=1, goals_away=3, match_date=timezone.now())
-    m.save()
+    i = 1
+    while i < 257:
+        match = Match(team_home=Team.objects.get(pk=randrange(1, 18)),
+                      team_away=Team.objects.get(pk=randrange(1, 18)),
+                      goals_home=randrange(0, 6),
+                      goals_away=randrange(0, 6),
+                      match_day=i,
+                      competition=c,
+                      sport_type=st,
+                      match_date=timezone.now())
+        match.save()
+        i += 1
 
 
 if __name__ == '__main__':

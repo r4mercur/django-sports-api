@@ -2,6 +2,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.conf import settings
 from django.db.models.signals import post_save
+from django.contrib import admin
 
 from rest_framework.authtoken.models import Token
 
@@ -77,6 +78,7 @@ class Match(models.Model):
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE, null=True, blank=True)
     sport_type = models.ForeignKey(SportType, on_delete=models.CASCADE, null=True, blank=True)
     match_date = models.DateTimeField("match date")
+    match_day = models.IntegerField(null=True, blank=True)
     goals_home = models.IntegerField(null=True, blank=True)
     goals_away = models.IntegerField(null=True, blank=True)
 
