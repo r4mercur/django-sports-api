@@ -9,7 +9,7 @@ django.setup()
 
 # can only be imported after django.setup() need to find a better solution
 from django.utils import timezone
-from competitions.models import Competition, Team, Player, Match, SportType, GenderType
+from competitions.models import Competition, Team, Player, Match, SportType, GenderType, Season
 from random import randrange
 
 
@@ -32,7 +32,16 @@ def create_example_data():
     st = SportType(name="Fussball")
     st.save()
 
+    i = 1
+    while i < 11:
+        s = Season(name="Saison " + str(i), start_date=timezone.now(), end_date=timezone.now())
+        s.save()
+        i += 1
+
+    s1 = Season.objects.get(pk=10)
     c = Competition(name="1. Bundesliga", gender_type=gt, sport_type=st)
+    c.save()
+    c.seasons.add(s1)
     c.save()
 
     i = 1

@@ -37,10 +37,24 @@ class GenderType(models.Model):
         verbose_name_plural = "Geschlechter"
 
 
+class Season(models.Model):
+    name = models.CharField(max_length=100)
+    start_date = models.DateField()
+    end_date = models.DateField()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Saison"
+        verbose_name_plural = "Saisons"
+
+
 class Competition(models.Model):
     name = models.CharField(max_length=100)
     sport_type = models.ForeignKey(SportType, on_delete=models.CASCADE)
     gender_type = models.ForeignKey(GenderType, on_delete=models.CASCADE)
+    seasons = models.ManyToManyField(Season)
 
     def __str__(self):
         return self.name
@@ -76,6 +90,7 @@ class Match(models.Model):
         default=None
     )
     competition = models.ForeignKey(Competition, on_delete=models.CASCADE, null=True, blank=True)
+    season = models.ForeignKey(Season, on_delete=models.CASCADE, null=True, blank=True)
     sport_type = models.ForeignKey(SportType, on_delete=models.CASCADE, null=True, blank=True)
     match_date = models.DateTimeField("match date")
     match_day = models.IntegerField(null=True, blank=True)
